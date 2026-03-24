@@ -1,0 +1,981 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目作品集 | 谢绍缘</title>
+  <style>
+    :root {
+      --bg: #f5efe3;
+      --paper: rgba(255, 252, 245, 0.9);
+      --card: rgba(255, 248, 236, 0.86);
+      --ink: #1d1a16;
+      --muted: #62584d;
+      --line: rgba(29, 26, 22, 0.12);
+      --accent: #b44f2a;
+      --accent-deep: #7d2c15;
+      --accent-soft: #f3c98b;
+      --teal: #1f6a70;
+      --shadow: 0 18px 45px rgba(89, 62, 24, 0.14);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(244, 196, 120, 0.44), transparent 32%),
+        radial-gradient(circle at 80% 20%, rgba(31, 106, 112, 0.18), transparent 26%),
+        linear-gradient(180deg, #f9f4eb 0%, #f3ead8 46%, #efe2cc 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(18px);
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .page-shell::before {
+      top: -100px;
+      right: -100px;
+      background: #df8f47;
+    }
+
+    .page-shell::after {
+      left: -140px;
+      bottom: 10%;
+      background: #6a9ea3;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 36px 0 28px;
+    }
+
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255, 249, 241, 0.88), rgba(250, 237, 212, 0.84));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.1);
+      color: var(--accent-deep);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(180, 79, 42, 0.12);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+      font-size: clamp(42px, 6vw, 74px);
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subtitle {
+      margin-top: 14px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-intro {
+      margin-top: 20px;
+      max-width: 760px;
+      font-size: 17px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: var(--accent-deep);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px;
+      border-radius: 26px;
+      background:
+        linear-gradient(160deg, rgba(31, 106, 112, 0.96), rgba(19, 64, 69, 0.92)),
+        linear-gradient(120deg, rgba(255,255,255,0.08), transparent 50%);
+      color: #f9f7f1;
+      min-height: 100%;
+    }
+
+    .hero-card small {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.78;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: rgba(249, 247, 241, 0.86);
+    }
+
+    .hero-card .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-card .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 13px;
+    }
+
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+
+    .quick-nav a {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(29, 26, 22, 0.08);
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .quick-nav a:hover {
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(29, 26, 22, 0.08);
+      font-weight: 600;
+    }
+
+    main {
+      padding: 18px 0 56px;
+    }
+
+    .project {
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 30px;
+      background: var(--paper);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .project-kicker {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .project h2 {
+      margin-top: 8px;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .project-summary {
+      max-width: 920px;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.08);
+      color: var(--accent-deep);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .section-card {
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+
+    .section-card h3 {
+      margin-bottom: 14px;
+      font-size: 20px;
+    }
+
+    .section-card p {
+      margin: 0 0 10px;
+    }
+
+    .section-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .section-card li + li {
+      margin-top: 8px;
+    }
+
+    .media-box,
+    .diagram-box {
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.7), rgba(242, 227, 199, 0.74)),
+        linear-gradient(120deg, rgba(180, 79, 42, 0.06), transparent 60%);
+      border: 1px solid var(--line);
+    }
+
+    .media-box {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .media-box::before {
+      content: "预览占位";
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31, 106, 112, 0.1);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .media-box strong {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .media-box span {
+      max-width: 360px;
+      color: var(--muted);
+    }
+
+    .media-box.image-mode {
+      padding: 0;
+      display: block;
+      min-height: 260px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .media-box.image-mode::before {
+      content: "项目截图";
+    }
+
+    .media-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff8f1;
+      font-weight: 700;
+    }
+
+    .diagram-box {
+      padding: 18px;
+    }
+
+    .pdf-panel {
+      margin-top: 16px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 460px;
+      border: 0;
+      display: block;
+      background: #f7f1e5;
+    }
+
+    .pdf-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pdf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.1);
+      color: var(--accent-deep);
+      font-weight: 700;
+    }
+
+    .diagram-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .flow-rows,
+    .flow-columns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .flow-columns {
+      align-items: stretch;
+    }
+
+    .node {
+      flex: 1 1 140px;
+      min-width: 120px;
+      padding: 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(29, 26, 22, 0.1);
+      background: rgba(255, 255, 255, 0.74);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .node.soft {
+      background: rgba(243, 201, 139, 0.24);
+    }
+
+    .node.deep {
+      background: rgba(31, 106, 112, 0.14);
+    }
+
+    .arrow {
+      font-size: 22px;
+      color: var(--accent);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+      flex: 1 1 180px;
+      min-width: 170px;
+    }
+
+    .diagram-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      color: var(--accent-deep);
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .impact-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .impact-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+    }
+
+    .footnote {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 0 0 48px;
+    }
+
+    .footer-card {
+      padding: 24px 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(29, 26, 22, 0.92), rgba(63, 51, 33, 0.96));
+      color: rgba(255,255,255,0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .footer-card p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-panel,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics,
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero,
+      main {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .hero-panel,
+      .project,
+      .footer-card {
+        padding: 20px;
+      }
+
+      .project-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="container">
+        <div class="hero-panel">
+          <section>
+            <span class="eyebrow">项目作品集</span>
+            <h1>你好，我是谢绍缘</h1>
+            <p class="hero-subtitle">聚焦多模态系统、智能体工程与应用机器学习的 AI 与自动化工程师。</p>
+            <div class="contact-row">
+              <a class="contact-chip" href="mailto:elonon901001@gmail.com">邮箱：elonon901001@gmail.com</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>3</strong>
+                <span>重点项目</span>
+              </div>
+              <div class="stat">
+                <strong>多模态 + 智能体</strong>
+                <span>核心技术方向</span>
+              </div>
+              <div class="stat">
+                <strong>可部署 / 可解释 / 可扩展</strong>
+                <span>工程目标</span>
+              </div>
+            </div>
+            <nav class="quick-nav">
+              <a href="#yanzhi">颜值分析系统</a>
+              <a href="#fintech">量化交易系统</a>
+              <a href="#review-agent">代码评审智能体</a>
+            </nav>
+          </section>
+          <aside class="hero-card">
+            <div>
+              <small>核心能力标签</small>
+              <div class="tag-list" style="margin-top:14px;">
+                <span class="tag">多模态AI系统</span>
+                <span class="tag">RAG应用开发</span>
+                <span class="tag">LLM工程落地</span>
+                <span class="tag">全栈AI产品开发</span>
+                <span class="tag">自动化控制背景</span>
+              </div>
+            </div>
+            <div>
+              <small>个人定位</small>
+              <p style="margin-top:12px;">
+                聚焦多模态能力、知识增强应用与可落地的大模型工程实践，兼顾算法实现、产品化交付与前后端协同开发。
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="project" id="yanzhi">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">项目 01</div>
+              <h2>颜知 | 基于 AI 的面部美学分析系统</h2>
+            </div>
+            <div class="pill">多智能体 · 多模态 · 云端部署 · RAG</div>
+          </div>
+
+          <p class="project-summary">
+            我开发了一套面向正脸图像的多智能体、多模态面部美学分析系统，将计算机视觉、几何建模、基于大模型的推理以及
+            RAG 约束评分整合为统一、结构化的评估框架。系统以共享的结构化表示层为基础，让不同智能体围绕同一组视觉特征、
+            关键点、几何描述符与纹理线索进行协作分析，实现分层推理与模块化扩展。
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>项目概述</h3>
+              <p>
+                系统采用专门设计的多智能体架构，每个智能体针对特定部位执行专家级分析。所有智能体基于统一的
+                “结构化表示层”工作，从而支持共享表征、跨模块协同以及链式推理。
+              </p>
+              <p>
+                我进一步构建了基于 RAG 的评分框架，将大模型输出锚定到整理后的美学规则库与护肤 / 风格知识库上，
+                显著提升了输出稳定性、JSON 结构一致性，并降低了不同光照与用户图像风格下的生成波动。
+              </p>
+              <p>
+                整套系统部署在阿里云 uniCloud 上，形成具备生产可用性的端到端管线，包括：基于 Uni-app
+                （Vue3 + TypeScript）的跨端前端、Node.js 云函数推理调度、异步任务队列、内容安全校验、云端持久化、
+                热更新发布与可扩展的云原生架构。
+              </p>
+            </div>
+
+            <div class="section-card media-box">
+              <div>
+                <strong>演示视频</strong>
+                <span>系统细节请优先查看演示视频；当前页面保留了视频跳转入口。</span>
+                <a class="video-link" href="https://youtu.be/ons2w1oyhIk" target="_blank" rel="noreferrer">打开 YouTube 演示</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>截图区域</h3>
+              <div class="media-box image-mode">
+                <img class="media-image" src="./yanzhi.png" alt="颜值 AI 面部美学分析系统截图">
+              </div>
+              <div class="footnote">备注：原文中的 “请查看演示视频中的系统细节” 已转为中文说明。</div>
+            </div>
+
+            <div class="section-card">
+              <h3>系统架构图</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">业务系统架构</div>
+                <div class="flow-rows">
+                  <div class="stack">
+                    <div class="node deep">客户端（uni-app）<br>上传 / 等待 / 结果页</div>
+                    <div class="node">本地状态缓存<br>Pinia + Storage</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">云端分析服务<br>任务创建 / 状态查询 / 结果回写</div>
+                    <div class="node">分析历史服务<br>历史查询 / 补偿写入</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node">uniCloud 数据库<br>任务表 / 历史表</div>
+                    <div class="node">对象存储 OSS<br>图像上传 / 安全访问</div>
+                  </div>
+                </div>
+                <div class="diagram-note">客户端轮询分析状态，云端负责长任务调度、存储回写与结果持久化。</div>
+              </div>
+
+              <div class="diagram-box" style="margin-top:14px;">
+                <div class="diagram-title">算法架构</div>
+                <div class="flow-columns">
+                  <div class="stack">
+                    <div class="node deep">用户上传正脸图像</div>
+                    <div class="node">预处理<br>对齐 / 归一化</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">感知插件层<br>脸型 / 眼部 / 鼻部 / 唇部 / 肤质</div>
+                    <div class="node">结构化表示层<br>特征图 / 关键点 / 几何描述 / 纹理线索</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">专用智能体层<br>脸型 / 眼部 / 鼻部 / 嘴部 / 皮肤</div>
+                    <div class="node">RAG 知识库<br>评分规则 / 风格与护肤建议</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">结构化输出<br>JSON 评分与建议</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>我的贡献</h3>
+              <ul>
+                <li>主导多智能体美学分析架构设计，定义五类专用智能体的任务角色、结构化输入与协作流程。</li>
+                <li>设计并实现统一的结构化表示层，整合特征图、人脸关键点、几何描述符与轻量纹理线索。</li>
+                <li>构建基于 RAG 的评分框架，将大模型输出锚定到美学规则库和护肤 / 风格知识库，显著提高跨样本一致性。</li>
+                <li>在 uniCloud 任务队列上实现云端异步推理调度，支持长耗时多模态评估、分布式任务处理与稳定结果持久化。</li>
+                <li>实现 OSS 签名上传与安全回取链路，保障前端与云端推理层之间的图像访问安全与可追踪性。</li>
+                <li>构建强化版结构化输出解析器，结合 JSON 解析与正则回退逻辑，处理多模态大模型不稳定输出。</li>
+                <li>设计可解释评分可视化界面，并开发演示级视频生成模块，用于展示面部结构与多角度对比。</li>
+                <li>集成 Qwen-VL Max 与 LangChain，支持多步推理、链式分析与可扩展的多智能体协作。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>项目成效</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>200+</strong>
+                  <span>多角度样本验证</span>
+                </div>
+                <div class="metric">
+                  <strong>&lt;3 秒</strong>
+                  <span>端到端推理延迟</span>
+                </div>
+                <div class="metric">
+                  <strong>稳定结构化输出</strong>
+                  <span>显著优于通用多模态模型</span>
+                </div>
+              </div>
+              <div class="impact-list">
+                <div class="impact-item">形成可复用、可解释、可扩展的多智能体美学推理框架，构成商业化 MVP（颜值 App）的核心技术基础。</div>
+                <div class="impact-item">系统具备生产级鲁棒性、知识增强推理能力与可扩展调度机制，可继续演进到多角度融合与个性化建模。</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="fintech">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">项目 02</div>
+              <h2>Fintech | 多因子量化交易系统（基于 XtQuant）</h2>
+            </div>
+            <div class="pill">事件驱动 · 自动交易 · 风控闭环</div>
+          </div>
+
+          <p class="project-summary">
+            该项目实现了一套基于 XtQuant（MiniQMT）的全自动多因子量化交易系统，形成从实时行情接入、因子计算、信号生成、
+            风险控制、自动下单执行到绩效监控的完整工程闭环。所有结果均由系统自身的因子模型、风险模块与执行引擎驱动，
+            不依赖主观人工决策。
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>绩效概览</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>60.95%</strong>
+                  <span>年化收益率</span>
+                </div>
+                <div class="metric">
+                  <strong>+1,368,064 元</strong>
+                  <span>过去一年总实现利润</span>
+                </div>
+                <div class="metric">
+                  <strong>约 100 万元</strong>
+                  <span>年利润量级</span>
+                </div>
+              </div>
+              <div class="pdf-panel">
+                <iframe class="pdf-frame" src="./assets/docs/returns.pdf#toolbar=1&navpanes=0&scrollbar=1" title="量化项目收益 PDF 预览"></iframe>
+                <div class="pdf-actions">
+                  <a class="pdf-link" href="./assets/docs/returns.pdf" target="_blank" rel="noreferrer">新窗口打开《收益.pdf》</a>
+                  <span style="color: var(--muted); font-size: 14px;">如果某些浏览器或部署平台禁用了内嵌 PDF，建议改为收益截图图片展示。</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <h3>系统架构</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">主交易链路</div>
+                <div class="flow-rows">
+                  <div class="node deep">市场数据</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">策略核心</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">执行引擎</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">券商接口</div>
+                </div>
+                <div class="diagram-note">该主路径被刻意保持简洁，以确保低延迟执行。</div>
+              </div>
+
+              <div class="diagram-box" style="margin-top:14px;">
+                <div class="diagram-title">事件总线与常驻运维层</div>
+                <div class="flow-columns">
+                  <div class="stack">
+                    <div class="node">事件总线</div>
+                    <div class="node">行情推送 / 成交回报 / 订单回调</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">订单状态</div>
+                    <div class="node soft">组合持仓</div>
+                    <div class="node soft">可观测性</div>
+                    <div class="node soft">审计存储 / 报表</div>
+                  </div>
+                </div>
+                <div class="diagram-note">异步事件驱动策略重算与执行调整，侧车式监控层持续独立运行，负责风控分析、审计与报表。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>架构说明</h3>
+              <ul>
+                <li>主交易路径覆盖 MiniQMT / xtdata 行情接入、策略核心、多因子评估、xttrader 执行和券商成交落地。</li>
+                <li>事件总线统一分发报价更新、执行回报与订单回调，以异步方式触发策略与执行调整。</li>
+                <li>常驻监控层负责订单状态跟踪、组合敞口更新、盈亏 / 回撤 / 滑点观测，以及审计日志和定期报表。</li>
+                <li>整体设计兼顾响应速度、系统鲁棒性与合规可追踪性。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>我的贡献</h3>
+              <ul>
+                <li>设计完整多因子策略框架，并将交易逻辑实现为模块化、可复现的工程组件。</li>
+                <li>搭建基于 XtQuant 的全链路系统：数据接入 → 因子计算 → 信号生成 → 风控 → 执行 → 分析。</li>
+                <li>实现 `xtdata` 集成，包括实时订阅、历史数据归一化、缺口补全与事件流抽象。</li>
+                <li>开发因子与信号引擎，覆盖趋势、波动、成交量、强度排序与稳定化逻辑。</li>
+                <li>设计完整风控体系，包括敞口限制、动态止损与回撤保护。</li>
+                <li>实现 `xttrader` 执行引擎与订单状态机，用于自动化实盘交易。</li>
+                <li>构建监控仪表与分析工具，增强系统可解释性与模型审计能力。</li>
+                <li>通过统一策略核心与适配器式执行层，保证回测、仿真与实盘之间的一致性。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>项目影响</h3>
+            <div class="impact-list">
+              <div class="impact-item">交易行为从零散逻辑迁移为完整、系统化、自动化的执行闭环。</div>
+              <div class="impact-item">在运行周期内实现约 100 万元年利润与约 60% 年化收益率。</div>
+              <div class="impact-item">通过结构化风控显著降低回撤，并提升整体工程透明度、可追溯性与可审计性。</div>
+              <div class="impact-item">为多策略扩展与跨市场部署提供了可复用的工程底座，验证了真实实盘能力，而非仅停留在回测层面。</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="review-agent">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">项目 03</div>
+              <h2>Code-Review Agent</h2>
+            </div>
+            <div class="pill">React 前端 · LangChain 包装层 · 多智能体状态机</div>
+          </div>
+
+          <p class="project-summary">
+            该项目实现了一套轻量级多智能体代码评审系统，前端基于 React，后端使用兼容 LangChain 的阿里通义千问模型包装层。
+            系统围绕共享状态机构建了五类专用智能体：思考、执行、观察、决策和结果聚合。通过迭代生成、验证与修正，这些智能体协同产出结构化、
+            高质量的代码评审报告。当前版本是一个不依赖外部工具的原型，但整体架构已经具备模块化、透明化与未来扩展能力。
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>截图区域</h3>
+              <div class="media-box image-mode" style="min-height:240px;">
+                <img class="media-image" src="./code-review.png" alt="代码评审智能体界面截图">
+              </div>
+            </div>
+
+            <div class="section-card">
+              <h3>系统架构</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">主状态机</div>
+                <div class="flow-rows">
+                  <div class="node deep">开始</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">思考智能体</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">执行智能体</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">观察智能体</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">决策智能体</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">结果聚合器</div>
+                </div>
+              </div>
+
+              <div class="diagram-box" style="margin-top:14px;">
+                <div class="diagram-title">评审循环</div>
+                <div class="flow-columns">
+                  <div class="stack">
+                    <div class="node">评审生成智能体</div>
+                    <div class="node">评审验证智能体</div>
+                  </div>
+                  <div class="arrow">↺</div>
+                  <div class="stack">
+                    <div class="node soft">执行智能体调度</div>
+                    <div class="node soft">决策智能体回路控制</div>
+                  </div>
+                </div>
+                <div class="diagram-note">生成与验证之间形成迭代闭环，直到满足报告质量要求，再交由结果聚合器输出最终结构化结果。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>项目影响</h3>
+            <div class="impact-list">
+              <div class="impact-item">通过明确的状态流转与决策跟踪，提高了系统可追踪性与可解释性。</div>
+              <div class="impact-item">借助持久化与迭代式界面展示，降低了本地代码评审的使用门槛。</div>
+              <div class="impact-item">为后续扩展更多节点、评审策略与报告字段，建立了可持续演进的评审框架。</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
