@@ -400,6 +400,38 @@
       object-position: top center;
     }
 
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .figure-panel {
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--line);
+    }
+
+    .figure-panel.wide {
+      grid-column: 1 / -1;
+    }
+
+    .figure-panel img {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(29, 26, 22, 0.08);
+    }
+
+    .figure-panel figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .video-link {
       display: inline-flex;
       align-items: center;
@@ -534,6 +566,34 @@
       font-size: 14px;
     }
 
+    .result-table {
+      width: 100%;
+      margin-top: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .result-table th {
+      color: var(--accent-deep);
+      background: rgba(180, 79, 42, 0.08);
+      font-weight: 700;
+    }
+
+    .result-table tr:last-child td {
+      border-bottom: 0;
+    }
+
     .impact-list {
       display: grid;
       gap: 10px;
@@ -545,6 +605,56 @@
       border-radius: 16px;
       background: rgba(255,255,255,0.62);
       border: 1px solid var(--line);
+    }
+
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .compact-project {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--line);
+    }
+
+    .compact-project h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+    }
+
+    .compact-project p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .compact-project ul {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .compact-project li + li {
+      margin-top: 6px;
+    }
+
+    .compact-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .compact-tags span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31, 106, 112, 0.1);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .footnote {
@@ -577,6 +687,8 @@
       }
 
       .metrics,
+      .figure-grid,
+      .compact-grid,
       .hero-stats {
         grid-template-columns: 1fr;
       }
@@ -615,8 +727,8 @@
             </div>
             <div class="hero-stats">
               <div class="stat">
-                <strong>3</strong>
-                <span>重点项目</span>
+                <strong>4 + 4</strong>
+                <span>精选项目 + 其他项目</span>
               </div>
               <div class="stat">
                 <strong>多模态 + 智能体</strong>
@@ -628,9 +740,11 @@
               </div>
             </div>
             <nav class="quick-nav">
+              <a href="#nyc-landuse">纽约土地利用分类</a>
               <a href="#yanzhi">颜值分析系统</a>
-              <a href="#fintech">量化交易系统</a>
-              <a href="#review-agent">代码评审智能体</a>
+              <a href="#cotton-diagnosis">棉花病虫害诊断</a>
+              <a href="#transformer-sentiment">Transformer 情感分析</a>
+              <a href="#additional-projects">其他项目</a>
             </nav>
           </section>
           <aside class="hero-card">
@@ -640,6 +754,11 @@
                 <span class="tag">多模态AI系统</span>
                 <span class="tag">RAG应用开发</span>
                 <span class="tag">LLM工程落地</span>
+                <span class="tag">Transformer Fine-tuning</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">ML Experiment Design</span>
+                <span class="tag">Multimodal RAG</span>
+                <span class="tag">VLM Adaptation</span>
                 <span class="tag">全栈AI产品开发</span>
                 <span class="tag">自动化控制背景</span>
               </div>
@@ -657,10 +776,206 @@
 
     <main>
       <div class="container">
-        <section class="project" id="yanzhi">
+        <section class="project" id="nyc-landuse">
           <div class="project-header">
             <div>
               <div class="project-kicker">项目 01</div>
+              <h2>基于 Qwen2.5-VL 微调的纽约地块级土地利用多模态分类</h2>
+            </div>
+            <div class="pill">Qwen2.5-VL · LoRA / QLoRA · Closed-set Classification</div>
+          </div>
+
+          <p class="project-summary">
+            本项目面向纽约市地块级土地利用分类任务，基于 NYC PLUTO 2018 和 2018 orthophoto imagery 构建包含 84,544 个 tax lots
+            的多模态 benchmark。每个样本包含 512×512 航拍图、弱行政元数据和文本描述，任务目标是预测固定 11 类 land-use code。
+            项目重点对 Qwen2.5-VL-7B-Instruct 进行 4-bit LoRA 参数高效微调，并比较 image-only、weakmeta-only 和 image+weakmeta
+            三种输入设置。
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>数据集构建</h3>
+              <p>
+                项目从 NYC 官方 PLUTO 2018 表和 2018 航拍图瓦片出发，清洗 <code>pluto2018.csv</code>，标准化 BBL 与 land-use label，
+                从 85.5 万有效地块中按 <code>borough × landuse</code> 分层抽样 84,544 个样本，并将 NYC 坐标转换为经纬度。
+              </p>
+              <p>
+                我进一步从 orthophoto tiles 中裁剪 512×512 地块航拍图，构造 image + metadata + text 的 JSONL manifest，
+                切分 train / validation / test，并形成 <code>landuse11_full</code> 和 <code>landuse11_weakmeta</code> 两个数据版本。
+              </p>
+            </div>
+
+            <div class="section-card">
+              <h3>Benchmark 规模</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>84,544</strong>
+                  <span>tax lot samples</span>
+                </div>
+                <div class="metric">
+                  <strong>11 类</strong>
+                  <span>land-use labels</span>
+                </div>
+                <div class="metric">
+                  <strong>image + metadata</strong>
+                  <span>multimodal inputs</span>
+                </div>
+              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Split</th>
+                    <th>Samples</th>
+                    <th>Input</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Train</td>
+                    <td>67,635</td>
+                    <td>image + weak metadata + text</td>
+                  </tr>
+                  <tr>
+                    <td>Validation</td>
+                    <td>8,453</td>
+                    <td>stratified by borough × landuse</td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>8,456</td>
+                    <td>11-way land-use code</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Leakage-aware 设计</h3>
+              <ul>
+                <li>识别 PLUTO metadata 中的 shortcut / leakage 风险，例如 <code>bldgclass</code>、<code>zonedist1</code>、<code>landuse</code> 和建筑面积类字段。</li>
+                <li>通过字段规则检查发现 <code>bldgclass</code> 几乎可以直接预测 land-use，accuracy 和 macro-F1 都接近 <code>0.9999</code>。</li>
+                <li>构造 <code>weakmeta</code> 版本，只保留 <code>borough</code>、<code>landmk</code>、<code>histdist</code>、<code>yearbuilt</code>、<code>lotarea</code>、<code>numfloors</code>、latitude 和 longitude。</li>
+                <li>通过弱元数据设置避免模型从行政代理字段中“抄答案”，使多模态评估更加公平。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Qwen2.5-VL 微调</h3>
+              <ul>
+                <li>加载 <code>Qwen2.5-VL-7B-Instruct</code>，使用 4-bit quantization 和 LoRA adapter 进行参数高效微调。</li>
+                <li>使用 HuggingFace Trainer 完成监督微调，保存 <code>final_adapter</code> 并在 test set 上评估。</li>
+                <li>LoRA 设置包括 rank <code>16</code>、alpha <code>32</code>、dropout <code>0.05</code>，学习率 <code>2e-4</code>，训练 <code>2</code> 个 epoch。</li>
+                <li>分别训练 <code>image_only</code>、<code>weakmeta_only</code> 和 <code>image_weakmeta</code> 三个 modality-specific adapters。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Closed-set Candidate Scoring</h3>
+              <p>
+                为解决 VLM 自由生成标签不稳定的问题，我实现了 closed-set candidate scoring：不让模型自由输出类别文本，
+                而是对固定 11 个 land-use code 分别计算条件 log probability，并选择概率最高的类别。
+              </p>
+              <div class="diagram-box">
+                <div class="diagram-title">Generative VLM → Closed-set Classifier</div>
+                <div class="flow-rows">
+                  <div class="node deep">Image + Weak Metadata</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Qwen LoRA Adapter</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Score 01 ... 11</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">Best Land-use Code</div>
+                </div>
+                <div class="diagram-note">该方式避免 free-form generation 中的非法输出、格式错误和标签映射问题。</div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <h3>关键结果</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>0.7060</strong>
+                  <span>best Qwen test macro-F1</span>
+                </div>
+                <div class="metric">
+                  <strong>0.7519</strong>
+                  <span>Qwen image+weakmeta accuracy</span>
+                </div>
+                <div class="metric">
+                  <strong>0.6716</strong>
+                  <span>ResNet gated fusion macro-F1</span>
+                </div>
+              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Accuracy</th>
+                    <th>Macro-F1</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Zero-shot image-only</td>
+                    <td>0.2305</td>
+                    <td>0.2155</td>
+                  </tr>
+                  <tr>
+                    <td>LoRA image+weakmeta free generation</td>
+                    <td>0.6798</td>
+                    <td>0.6766</td>
+                  </tr>
+                  <tr>
+                    <td>LoRA image+weakmeta closed-set</td>
+                    <td>0.7519</td>
+                    <td>0.7060</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Baseline 对比与蒸馏探索</h3>
+              <ul>
+                <li>对比 ResNet50 image-only、ResNet50 image+weakmeta、no-gate fusion 和 gated fusion 等传统多模态 baseline。</li>
+                <li>Qwen LoRA image+weakmeta closed-set 达到 <code>0.7060</code> macro-F1，超过 ResNet50 image+weakmeta <code>0.6627</code> 和 gated fusion <code>0.6716</code>。</li>
+                <li>缓存 Qwen closed-set 的 11 类概率，探索将 Qwen soft label 蒸馏到轻量 ResNet student。</li>
+                <li>蒸馏结果显示当前设置下直接适配 VLM 优于 Qwen-to-ResNet student distillation。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>我的贡献</h3>
+              <ul>
+                <li>构建纽约地块级多模态土地利用分类 benchmark，将 PLUTO land-use 标签与航拍图、弱元数据和文本描述对齐。</li>
+                <li>分析并处理 metadata leakage / shortcut learning，设计 leakage-aware weak-metadata 数据版本。</li>
+                <li>使用 4-bit LoRA 对 Qwen2.5-VL-7B-Instruct 进行 image-only、weakmeta-only 和 image+weakmeta 三种模式微调。</li>
+                <li>实现 closed-set candidate scoring，将生成式 VLM 稳定适配到固定 11 类分类任务。</li>
+                <li>完成与 ResNet / fusion baseline 的系统对比，并探索 Qwen soft-label knowledge distillation。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>项目价值</h3>
+            <div class="impact-list">
+              <div class="impact-item">将真实城市地块级土地利用识别转化为 image + metadata + text 的多模态 VLM 分类任务。</div>
+              <div class="impact-item">证明 zero-shot VLM 在该任务上表现较弱，而 LoRA 微调与 closed-set scoring 能显著提升可靠性和性能。</div>
+              <div class="impact-item">通过泄露字段分析和 weakmeta 构建，使评估更接近真实多模态理解能力，而不是行政字段 shortcut。</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="yanzhi">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">项目 02</div>
               <h2>颜知 | 基于 AI 的面部美学分析系统</h2>
             </div>
             <div class="pill">多智能体 · 多模态 · 云端部署 · RAG</div>
@@ -794,188 +1109,423 @@
           </div>
         </section>
 
-        <section class="project" id="fintech">
+        <section class="project" id="cotton-diagnosis">
           <div class="project-header">
             <div>
-              <div class="project-kicker">项目 02</div>
-              <h2>Fintech | 多因子量化交易系统（基于 XtQuant）</h2>
+              <div class="project-kicker">项目 03</div>
+              <h2>毕业论文：基于多模态大模型与 RAG 的棉花病虫害智能诊断系统</h2>
             </div>
-            <div class="pill">事件驱动 · 自动交易 · 风控闭环</div>
+            <div class="pill">Thesis · Qwen-VL · RAG · Milvus · Agricultural AI</div>
           </div>
 
           <p class="project-summary">
-            该项目实现了一套基于 XtQuant（MiniQMT）的全自动多因子量化交易系统，形成从实时行情接入、因子计算、信号生成、
-            风险控制、自动下单执行到绩效监控的完整工程闭环。所有结果均由系统自身的因子模型、风险模块与执行引擎驱动，
-            不依赖主观人工决策。
+            本项目是我的毕业论文工作，面向棉花种植中的病虫害识别、防治建议和田间管理问答需求，研究并实现了一套基于多模态大模型与
+            检索增强生成 RAG 的智能诊断系统。系统将棉花病虫害图片、用户问题、Qwen-VL 图像语义理解结果和专业知识库检索结果共同输入大模型，
+            引导模型生成结构化诊断结果、判断依据、防治建议和注意事项。相比单纯图像分类或直接调用多模态模型，该系统通过农业知识库约束生成过程，
+            降低大模型幻觉和不专业建议风险，使输出更接近植保实际应用。
           </p>
 
           <div class="grid two-col">
             <div class="section-card">
-              <h3>绩效概览</h3>
-              <div class="metrics">
-                <div class="metric">
-                  <strong>60.95%</strong>
-                  <span>年化收益率</span>
-                </div>
-                <div class="metric">
-                  <strong>+1,368,064 元</strong>
-                  <span>过去一年总实现利润</span>
-                </div>
-                <div class="metric">
-                  <strong>约 100 万元</strong>
-                  <span>年利润量级</span>
-                </div>
-              </div>
-              <div class="pdf-panel">
-                <iframe class="pdf-frame" src="./returns.pdf#toolbar=1&navpanes=0&scrollbar=1" title="量化项目收益 PDF 预览"></iframe>
-                <div class="pdf-actions">
-                  <a class="pdf-link" href="./returns.pdf" target="_blank" rel="noreferrer">新窗口打开《收益.pdf》</a>
-                  <span style="color: var(--muted); font-size: 14px;">如果某些浏览器或部署平台禁用了内嵌 PDF，建议改为收益截图图片展示。</span>
-                </div>
-              </div>
+              <h3>论文目标与系统流程</h3>
+              <p>
+                论文关注农业病虫害诊断中的三个问题：田间图像复杂导致单一视觉模型不稳定，通用多模态模型容易给出缺乏植保依据的建议，
+                以及诊断结果需要以农户和植保人员可读的结构化形式输出。
+              </p>
+              <p>
+                系统将图像识别、知识检索和大模型生成串联为端到端诊断链路。用户上传田间图片并输入问题后，Qwen-VL 提取图像语义信息和疑似病虫害线索，
+                检索模块根据识别结果与用户问题召回 Top-k 专业知识片段，最终由 Prompt 模板约束模型输出诊断结果、判断依据、防治建议和注意事项。
+              </p>
             </div>
 
             <div class="section-card">
-              <h3>系统架构</h3>
+              <h3>诊断架构</h3>
               <div class="diagram-box">
-                <div class="diagram-title">主交易链路</div>
+                <div class="diagram-title">Multimodal RAG Diagnosis Workflow</div>
                 <div class="flow-rows">
-                  <div class="node deep">市场数据</div>
+                  <div class="node deep">图片 + 问题<br>Web Upload</div>
                   <div class="arrow">→</div>
-                  <div class="node soft">策略核心</div>
+                  <div class="node soft">Qwen-VL<br>图像语义理解</div>
                   <div class="arrow">→</div>
-                  <div class="node soft">执行引擎</div>
+                  <div class="node soft">Milvus<br>Top-k 知识检索</div>
                   <div class="arrow">→</div>
-                  <div class="node deep">券商接口</div>
+                  <div class="node deep">结构化诊断<br>防治建议</div>
                 </div>
-                <div class="diagram-note">该主路径被刻意保持简洁，以确保低延迟执行。</div>
-              </div>
-
-              <div class="diagram-box" style="margin-top:14px;">
-                <div class="diagram-title">事件总线与常驻运维层</div>
-                <div class="flow-columns">
-                  <div class="stack">
-                    <div class="node">事件总线</div>
-                    <div class="node">行情推送 / 成交回报 / 订单回调</div>
-                  </div>
-                  <div class="arrow">→</div>
-                  <div class="stack">
-                    <div class="node soft">订单状态</div>
-                    <div class="node soft">组合持仓</div>
-                    <div class="node soft">可观测性</div>
-                    <div class="node soft">审计存储 / 报表</div>
-                  </div>
-                </div>
-                <div class="diagram-note">异步事件驱动策略重算与执行调整，侧车式监控层持续独立运行，负责风控分析、审计与报表。</div>
+                <div class="diagram-note">论文核心思路是用领域知识检索约束多模态生成，使诊断结果有图像依据和植保知识依据。</div>
               </div>
             </div>
           </div>
 
           <div class="grid two-col">
             <div class="section-card">
-              <h3>架构说明</h3>
+              <h3>知识增强诊断设计</h3>
               <ul>
-                <li>主交易路径覆盖 MiniQMT / xtdata 行情接入、策略核心、多因子评估、xttrader 执行和券商成交落地。</li>
-                <li>事件总线统一分发报价更新、执行回报与订单回调，以异步方式触发策略与执行调整。</li>
-                <li>常驻监控层负责订单状态跟踪、组合敞口更新、盈亏 / 回撤 / 滑点观测，以及审计日志和定期报表。</li>
-                <li>整体设计兼顾响应速度、系统鲁棒性与合规可追踪性。</li>
+                <li>构建棉花病虫害领域知识库，整理棉花常见病虫害的症状特征、发生规律、防治方法和田间管理建议。</li>
+                <li>对知识文本进行清洗、切片和结构化处理，为后续向量化与检索提供稳定数据基础。</li>
+                <li>设计知识向量化流程，使用 Embedding 模型将知识片段转为向量并存入 Milvus。</li>
+                <li>根据用户问题和图像识别结果进行 Top-k 相似知识检索，为多模态推理提供专业上下文。</li>
+                <li>优化 Prompt 模板和结构化输出格式，要求模型按“诊断结果、判断依据、防治建议、注意事项”组织回答。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>技术栈</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>Qwen-VL</strong>
+                  <span>multimodal image understanding</span>
+                </div>
+                <div class="metric">
+                  <strong>Milvus</strong>
+                  <span>vector retrieval backend</span>
+                </div>
+                <div class="metric">
+                  <strong>RAG</strong>
+                  <span>knowledge-grounded generation</span>
+                </div>
+              </div>
+              <div class="impact-list">
+                <div class="impact-item">技术覆盖 Qwen-VL、RAG、Milvus、Embedding、Python、FastAPI / Flask、Prompt Engineering、向量检索和多模态推理。</div>
+                <div class="impact-item">Web 原型支持图片上传、文本提问、后端诊断、知识检索和结果展示。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>论文评估设计</h3>
+              <ul>
+                <li>设计对比实验，比较仅使用多模态模型直接回答与引入 RAG 知识库后的诊断表现差异。</li>
+                <li>设计消融实验，观察去除知识检索、调整 Prompt 模板或改变检索 Top-k 后的输出变化。</li>
+                <li>从诊断准确率、建议专业度、回答完整度、结构化输出稳定性和响应时间等维度评估系统效果。</li>
+                <li>重点分析复杂田间图像场景下的泛化能力、解释能力和专业建议可靠性。</li>
               </ul>
             </div>
 
             <div class="section-card">
               <h3>我的贡献</h3>
               <ul>
-                <li>设计完整多因子策略框架，并将交易逻辑实现为模块化、可复现的工程组件。</li>
-                <li>搭建基于 XtQuant 的全链路系统：数据接入 → 因子计算 → 信号生成 → 风控 → 执行 → 分析。</li>
-                <li>实现 `xtdata` 集成，包括实时订阅、历史数据归一化、缺口补全与事件流抽象。</li>
-                <li>开发因子与信号引擎，覆盖趋势、波动、成交量、强度排序与稳定化逻辑。</li>
-                <li>设计完整风控体系，包括敞口限制、动态止损与回撤保护。</li>
-                <li>实现 `xttrader` 执行引擎与订单状态机，用于自动化实盘交易。</li>
-                <li>构建监控仪表与分析工具，增强系统可解释性与模型审计能力。</li>
-                <li>通过统一策略核心与适配器式执行层，保证回测、仿真与实盘之间的一致性。</li>
+                <li>提出并实现多模态 RAG 诊断链路，将图像、用户问题、识别结果和检索知识统一输入 Qwen-VL。</li>
+                <li>搭建棉花病虫害领域知识库和 Milvus 向量检索流程，实现农业知识片段的语义召回。</li>
+                <li>开发 Web 原型系统，实现图片上传、文本提问、后端诊断调用、知识检索和结果展示闭环。</li>
+                <li>优化农业诊断 Prompt 与结构化输出，提高系统在植保场景中的可用性、可解释性和输出稳定性。</li>
               </ul>
             </div>
           </div>
 
           <div class="section-card" style="margin-top:18px;">
-            <h3>项目影响</h3>
+            <h3>论文价值</h3>
             <div class="impact-list">
-              <div class="impact-item">交易行为从零散逻辑迁移为完整、系统化、自动化的执行闭环。</div>
-              <div class="impact-item">在运行周期内实现约 100 万元年利润与约 60% 年化收益率。</div>
-              <div class="impact-item">通过结构化风控显著降低回撤，并提升整体工程透明度、可追溯性与可审计性。</div>
-              <div class="impact-item">为多策略扩展与跨市场部署提供了可复用的工程底座，验证了真实实盘能力，而非仅停留在回测层面。</div>
+              <div class="impact-item">形成面向农业植保场景的“图像理解 + 知识检索 + 大模型生成”端到端智能诊断框架。</div>
+              <div class="impact-item">相比单纯 CNN 图像分类或直接多模态问答，系统能够结合领域知识给出更可解释、更接近植保实践的建议。</div>
+              <div class="impact-item">通过 RAG 引入专业知识库，降低大模型凭空生成和不准确防治建议的风险，为毕业论文提供明确研究问题、系统实现和评估路径。</div>
             </div>
           </div>
         </section>
 
-        <section class="project" id="review-agent">
+        <section class="project" id="transformer-sentiment">
           <div class="project-header">
             <div>
-              <div class="project-kicker">项目 03</div>
-              <h2>Code-Review Agent</h2>
+              <div class="project-kicker">项目 04</div>
+              <h2>多模型情感分类对比实验：RoBERTa Fine-tuning 与 Transformer 评估管线</h2>
             </div>
-            <div class="pill">React 前端 · LangChain 包装层 · 多智能体状态机</div>
+            <div class="pill">Transformer Encoder · Slurm GPU Cluster · Sentiment Classification</div>
           </div>
 
           <p class="project-summary">
-            该项目实现了一套轻量级多智能体代码评审系统，前端基于 React，后端使用兼容 LangChain 的阿里通义千问模型包装层。
-            系统围绕共享状态机构建了五类专用智能体：思考、执行、观察、决策和结果聚合。通过迭代生成、验证与修正，这些智能体协同产出结构化、
-            高质量的代码评审报告。当前版本是一个不依赖外部工具的原型，但整体架构已经具备模块化、透明化与未来扩展能力。
+            本项目比较 LSTM、Bi-LSTM+Attention、RoBERTa 和 DeepSeek 在 Yelp、IMDB、Rotten Tomatoes 情感分类任务上的表现，
+            覆盖传统 RNN、attention-based RNN、fine-tuned Transformer encoder 和 LLM 推理方法。项目整体结论显示，普通 LSTM 在细粒度
+            Yelp 5-class 任务上存在明显性能瓶颈，Bi-LSTM+Attention 显著提升上下文建模能力，而 Transformer-based models 表现最强。
+            我的主要工作集中在 RoBERTa / BERT advanced Transformer 部分，包括训练管线、GPU cluster 运行、strict validation/test 改造、
+            混淆矩阵和实验产物归档。
           </p>
 
           <div class="grid two-col">
             <div class="section-card">
-              <h3>截图区域</h3>
-              <div class="media-box image-mode" style="min-height:240px;">
-                <img class="media-image" src="./code-review.png" alt="代码评审智能体界面截图">
-              </div>
+              <h3>项目范围与我的职责</h3>
+              <p>
+                整体项目先构建平衡 Yelp 5-class 数据集，并在 IMDB / Rotten Tomatoes 二分类任务上补充评估，对比从 LSTM baseline 到
+                Bi-LSTM+Attention、RoBERTa fine-tuning 和 DeepSeek 的性能差异。
+              </p>
+              <p>
+                我负责把预训练 Transformer encoder 适配成标准化、可批量运行、可复核的训练与评估系统。通用脚本支持 IMDB、
+                Rotten Tomatoes、Yelp binary、Yelp 5-class、Financial PhraseBank 和本地 CSV，并自动保存 accuracy、macro-F1、
+                confusion matrix、predictions、training time、inference latency、parameter count 与模型 checkpoint。
+              </p>
             </div>
 
             <div class="section-card">
-              <h3>系统架构</h3>
+              <h3>对比实验管线</h3>
               <div class="diagram-box">
-                <div class="diagram-title">主状态机</div>
+                <div class="diagram-title">Sentiment Model Comparison Workflow</div>
                 <div class="flow-rows">
-                  <div class="node deep">开始</div>
+                  <div class="node deep">Datasets<br>Yelp / IMDB / RT</div>
                   <div class="arrow">→</div>
-                  <div class="node soft">思考智能体</div>
+                  <div class="node soft">Baselines<br>LSTM / Bi-LSTM+Attn</div>
                   <div class="arrow">→</div>
-                  <div class="node soft">执行智能体</div>
+                  <div class="node soft">Advanced Models<br>RoBERTa / DeepSeek</div>
                   <div class="arrow">→</div>
-                  <div class="node soft">观察智能体</div>
-                  <div class="arrow">→</div>
-                  <div class="node soft">决策智能体</div>
-                  <div class="arrow">→</div>
-                  <div class="node deep">结果聚合器</div>
+                  <div class="node deep">Evaluation<br>Accuracy / F1 / Matrix</div>
+                </div>
+                <div class="diagram-note">整体比较模型架构差异；我的重点是 RoBERTa/BERT 训练、GPU cluster 执行和结果归档。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>整体模型对比</h3>
+            <table class="result-table">
+              <thead>
+                <tr>
+                  <th>Dataset</th>
+                  <th>LSTM</th>
+                  <th>Bi-LSTM + Attn</th>
+                  <th>RoBERTa</th>
+                  <th>DeepSeek</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Yelp 5-class</td>
+                  <td>~22.84%</td>
+                  <td>55.54%</td>
+                  <td>65.30%</td>
+                  <td>64.85%</td>
+                </tr>
+                <tr>
+                  <td>IMDB binary</td>
+                  <td>-</td>
+                  <td>90.82%</td>
+                  <td>94.39%</td>
+                  <td>95.22%</td>
+                </tr>
+                <tr>
+                  <td>Rotten Tomatoes binary</td>
+                  <td>-</td>
+                  <td>69.04%</td>
+                  <td>89.40%</td>
+                  <td>91.93%</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="impact-list">
+              <div class="impact-item">Yelp 5-class 是最难任务，中间星级 2/3/4 语义边界模糊，普通 LSTM 难以突破性能瓶颈。</div>
+              <div class="impact-item">Bi-LSTM+Attention 通过双向上下文和关键词加权显著提升，但整体仍低于 Transformer-based models。</div>
+              <div class="impact-item">RoBERTa 在 Yelp 细粒度五分类上表现最稳定；DeepSeek 在 IMDB 和 Rotten Tomatoes 二分类上更强。</div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>我的贡献</h3>
+              <ul>
+                <li>实现通用 BERT / RoBERTa sentiment fine-tuning 管线，支持多种公开数据集和本地 CSV 输入。</li>
+                <li>配置学校 Slurm GPU cluster，在 RTX PRO 6000 Blackwell 节点上通过 <code>sbatch</code> 后台提交训练任务。</li>
+                <li>解决 cluster 环境中的 conda env、pip cache、Hugging Face cache、PyTorch、Transformers 和 accelerate 依赖兼容问题。</li>
+                <li>将原始 RoBERTa Yelp 5-class 脚本改造为 IMDB / Rotten Tomatoes 二分类训练系统，输出 negative / positive 混淆矩阵和完整 metadata。</li>
+                <li>识别并修正 test set 用于 checkpoint selection 的实验设计问题，新增 strict validation / test 版本。</li>
+                <li>维护 report version 与 strict version，保证报告结果可复现，同时提供更严谨的数据划分实现。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>关键结果</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>65.30%</strong>
+                  <span>Yelp 5-class RoBERTa accuracy</span>
+                </div>
+                <div class="metric">
+                  <strong>94.39%</strong>
+                  <span>IMDB RoBERTa accuracy / macro-F1</span>
+                </div>
+                <div class="metric">
+                  <strong>89.40%</strong>
+                  <span>Rotten Tomatoes RoBERTa accuracy</span>
                 </div>
               </div>
 
-              <div class="diagram-box" style="margin-top:14px;">
-                <div class="diagram-title">评审循环</div>
-                <div class="flow-columns">
-                  <div class="stack">
-                    <div class="node">评审生成智能体</div>
-                    <div class="node">评审验证智能体</div>
-                  </div>
-                  <div class="arrow">↺</div>
-                  <div class="stack">
-                    <div class="node soft">执行智能体调度</div>
-                    <div class="node soft">决策智能体回路控制</div>
-                  </div>
-                </div>
-                <div class="diagram-note">生成与验证之间形成迭代闭环，直到满足报告质量要求，再交由结果聚合器输出最终结构化结果。</div>
-              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Dataset</th>
+                    <th>Accuracy</th>
+                    <th>Macro-F1</th>
+                    <th>Train / Test</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Yelp 5-class</td>
+                    <td>0.6530</td>
+                    <td>0.6501</td>
+                    <td>50,000 / 5,000</td>
+                  </tr>
+                  <tr>
+                    <td>IMDB</td>
+                    <td>0.9439</td>
+                    <td>0.9439</td>
+                    <td>25,000 / 25,000</td>
+                  </tr>
+                  <tr>
+                    <td>Rotten Tomatoes</td>
+                    <td>0.8940</td>
+                    <td>0.8940</td>
+                    <td>8,530 / 1,066</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>集群与脚本</h3>
+              <ul>
+                <li>使用 <code>sbatch</code> 提交训练任务，面向 <code>-C pro6000</code> 的 RTX PRO 6000 Blackwell 节点。</li>
+                <li>编写 <code>scripts/setup_cluster_env.sh</code>、<code>scripts/run_bert_pro6000.sbatch</code> 和 Yelp / RoBERTa 专用脚本。</li>
+                <li>将 conda env、pip cache、HF cache 放到 SSD / project 目录，规避 home quota 限制。</li>
+                <li>修复新版 Transformers 参数兼容问题，将旧版 <code>tokenizer=</code> 调整为兼容的 <code>processing_class=</code> 流程。</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>实验严谨性与复现</h3>
+              <ul>
+                <li>初版报告结果完整可复现，日志显示 CUDA 可用并完成 final experiment summary。</li>
+                <li>识别出 test set 被用于 checkpoint selection 的设计问题，明确其不属于反向传播泄漏，但不够严格。</li>
+                <li>新增 strict 版本：train set 负责训练，validation set 选择 best checkpoint，test set 最终只评估一次。</li>
+                <li>将 strict 输出保存到独立目录，避免覆盖报告版本结果，并保持报告数字、代码版本和 checkpoint 之间可对应。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>实验产物与结果核验</h3>
+            <p>
+              核心实验材料已归档，包括训练脚本、Slurm 运行脚本、metrics、confusion matrix、结果摘要和 cluster log notes。
+              当前页面展示训练流程图、结果对比图和 reported run 的混淆矩阵，用于说明实验流程、结果一致性和错误分析。
+            </p>
+            <div class="figure-grid">
+              <figure class="figure-panel wide">
+                <img src="./yelp_model_comparison.png" alt="Yelp 5-class sentiment classification model comparison">
+                <figcaption>Yelp 5-class 主任务模型对比：RoBERTa 在细粒度五分类上略高于 DeepSeek，明显优于 LSTM 与 Bi-LSTM+Attention。</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./yelp_roberta_per_class_f1.png" alt="RoBERTa per-class F1 on Yelp 5-class sentiment task">
+                <figcaption>RoBERTa 在 Yelp 各星级上的 F1：1 星和 5 星更容易识别，2-4 星因语义边界模糊更容易混淆。</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./roberta_training_pipeline.png" alt="RoBERTa sentiment classification training pipeline">
+                <figcaption>RoBERTa 训练与评估流程：数据集、tokenizer、encoder、CLS 拼接、多样本 dropout、二分类器和最终指标输出。</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./roberta_results_comparison.png" alt="RoBERTa sentiment classification results comparison">
+                <figcaption>IMDB 与 Rotten Tomatoes 上 reported run 和 strict validation/test split 的 accuracy / macro-F1 对比。</figcaption>
+              </figure>
+              <figure class="figure-panel">
+                <img src="./imdb_confusion_matrix_reported.png" alt="IMDB reported run confusion matrix">
+                <figcaption>IMDB reported run 混淆矩阵，展示 negative / positive 两类的预测分布。</figcaption>
+              </figure>
+              <figure class="figure-panel">
+                <img src="./rt_confusion_matrix_reported.png" alt="Rotten Tomatoes reported run confusion matrix">
+                <figcaption>Rotten Tomatoes reported run 混淆矩阵，用于补充 accuracy 之外的错误分析。</figcaption>
+              </figure>
             </div>
           </div>
 
           <div class="section-card" style="margin-top:18px;">
             <h3>项目影响</h3>
             <div class="impact-list">
-              <div class="impact-item">通过明确的状态流转与决策跟踪，提高了系统可追踪性与可解释性。</div>
-              <div class="impact-item">借助持久化与迭代式界面展示，降低了本地代码评审的使用门槛。</div>
-              <div class="impact-item">为后续扩展更多节点、评审策略与报告字段，建立了可持续演进的评审框架。</div>
+              <div class="impact-item">将常见 BERT 情感分类任务工程化为可复现、可扩展、可在 GPU cluster 上批量运行的训练与评估管线。</div>
+              <div class="impact-item">为团队报告提供 RoBERTa strong baseline，同时保留完整 metrics、confusion matrix、日志和 checkpoint 产物。</div>
+              <div class="impact-item">通过 strict validation / test 版本补齐实验设计严谨性，体现从“跑通模型”到“可复现实验”的工程标准。</div>
             </div>
+          </div>
+        </section>
+
+        <section class="project" id="additional-projects">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">其他项目</div>
+              <h2>Additional Projects</h2>
+            </div>
+            <div class="pill">基础 ML · AI 应用原型 · 金融自动化</div>
+          </div>
+
+          <p class="project-summary">
+            这些项目作为补充展示，覆盖经典计算机视觉、传统机器学习实验、智能体应用原型和量化交易自动化。它们不作为主页主叙事，
+            但可以补充说明我的工程实现、实验设计和跨场景落地能力。
+          </p>
+
+          <div class="compact-grid">
+            <article class="compact-project">
+              <h3>VGG19 Transfer Learning 图像分类</h3>
+              <p>基于 Dogs vs. Cats 数据集完成一个端到端视觉分类工程，用 ImageNet 预训练 VGG19 做特征提取，只训练最后的分类器完成 cat / dog 二分类。</p>
+              <ul>
+                <li>完成 224×224 resize、normalization、horizontal flip、small rotation 和 random resized crop 等预处理与增强。</li>
+                <li>使用 CrossEntropyLoss + SGD 训练 10 个 epoch，并通过 dropout 缓解小数据集过拟合。</li>
+                <li>使用最佳权重预测 500 张 test set 图片并生成 <code>submission.csv</code>，validation accuracy 约 98% - 99%。</li>
+                <li>扩展到 CIFAR-10 十分类，并讨论 class imbalance 下的 weighted loss 与 oversampling。</li>
+              </ul>
+              <div class="compact-tags">
+                <span>VGG19</span>
+                <span>Transfer Learning</span>
+                <span>Computer Vision</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>PCA Fashion-MNIST 降维分析</h3>
+              <p>围绕 Fashion-MNIST 构建传统机器学习实验，研究 PCA 降维对 1-NN 图像分类性能的影响。</p>
+              <ul>
+                <li>处理 60,000 张训练图像和 10,000 张测试图像，将 28×28 灰度图展开为 784 维向量。</li>
+                <li>使用 train-only standardization 防止测试集泄漏，并建立 full-dimensional 1-NN baseline。</li>
+                <li>系统评估 5、10、20、30、50、80、100、150、200、300、500、784 维 PCA 设置。</li>
+                <li>300 维 PCA 达到 84.78% 测试准确率，高于 84.13% baseline，并可视化解释方差与准确率曲线。</li>
+              </ul>
+              <div class="compact-tags">
+                <span>PCA</span>
+                <span>1-NN</span>
+                <span>scikit-learn</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>Code-Review Agent</h3>
+              <p>构建一个轻量级多智能体代码评审原型，重点展示 LLM 应用编排、状态流转和结构化报告生成能力。</p>
+              <ul>
+                <li>前端使用 React，后端通过兼容 LangChain 的 Qwen 模型包装层调用大模型。</li>
+                <li>设计共享状态机，组织思考、执行、观察、决策和结果聚合五类节点。</li>
+                <li>引入“评审生成 - 评审验证”的迭代闭环，让系统先生成问题，再检查报告质量并修正。</li>
+                <li>输出结构化代码评审报告，为后续接入真实 repo、静态分析工具和 PR workflow 预留扩展空间。</li>
+              </ul>
+              <div class="compact-tags">
+                <span>React</span>
+                <span>LangChain</span>
+                <span>Multi-agent</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>Fintech 多因子量化交易系统</h3>
+              <p>基于 XtQuant / MiniQMT 构建自动化交易闭环，将行情接入、因子计算、信号生成、风控和自动下单整合为可运行系统。</p>
+              <ul>
+                <li>实现 xtdata 实时行情订阅、历史数据归一化、缺口补全和事件流抽象。</li>
+                <li>设计趋势、波动、成交量和强度排序等多因子信号，并接入风控模块控制敞口、止损和回撤。</li>
+                <li>实现 xttrader 执行引擎与订单状态机，支持自动化实盘交易和成交回报处理。</li>
+                <li>构建绩效监控与报表，运行期年化收益率约 60.95%，过去一年总实现利润约 +1,368,064 元。</li>
+              </ul>
+              <div class="compact-tags">
+                <span>XtQuant</span>
+                <span>Event-driven</span>
+                <span>Risk Control</span>
+              </div>
+            </article>
           </div>
         </section>
       </div>
     </main>
+  </div>
+</body>
+</html>

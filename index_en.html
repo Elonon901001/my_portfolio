@@ -1,0 +1,1506 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portfolio | Shaoyuan Xie</title>
+  <style>
+    :root {
+      --bg: #f5efe3;
+      --paper: rgba(255, 252, 245, 0.9);
+      --card: rgba(255, 248, 236, 0.86);
+      --ink: #1d1a16;
+      --muted: #62584d;
+      --line: rgba(29, 26, 22, 0.12);
+      --accent: #b44f2a;
+      --accent-deep: #7d2c15;
+      --accent-soft: #f3c98b;
+      --teal: #1f6a70;
+      --shadow: 0 18px 45px rgba(89, 62, 24, 0.14);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(244, 196, 120, 0.44), transparent 32%),
+        radial-gradient(circle at 80% 20%, rgba(31, 106, 112, 0.18), transparent 26%),
+        linear-gradient(180deg, #f9f4eb 0%, #f3ead8 46%, #efe2cc 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(18px);
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .page-shell::before {
+      top: -100px;
+      right: -100px;
+      background: #df8f47;
+    }
+
+    .page-shell::after {
+      left: -140px;
+      bottom: 10%;
+      background: #6a9ea3;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 36px 0 28px;
+    }
+
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255, 249, 241, 0.88), rgba(250, 237, 212, 0.84));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.1);
+      color: var(--accent-deep);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(180, 79, 42, 0.12);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+      font-size: clamp(42px, 6vw, 74px);
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subtitle {
+      margin-top: 14px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-intro {
+      margin-top: 20px;
+      max-width: 760px;
+      font-size: 17px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: var(--accent-deep);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px;
+      border-radius: 26px;
+      background:
+        linear-gradient(160deg, rgba(31, 106, 112, 0.96), rgba(19, 64, 69, 0.92)),
+        linear-gradient(120deg, rgba(255,255,255,0.08), transparent 50%);
+      color: #f9f7f1;
+      min-height: 100%;
+    }
+
+    .hero-card small {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.78;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: rgba(249, 247, 241, 0.86);
+    }
+
+    .hero-card .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-card .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 13px;
+    }
+
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+
+    .quick-nav a {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(29, 26, 22, 0.08);
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .quick-nav a:hover {
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(29, 26, 22, 0.08);
+      font-weight: 600;
+    }
+
+    main {
+      padding: 18px 0 56px;
+    }
+
+    .project {
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 30px;
+      background: var(--paper);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .project-kicker {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .project h2 {
+      margin-top: 8px;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .project-summary {
+      max-width: 920px;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.08);
+      color: var(--accent-deep);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .section-card {
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+
+    .section-card h3 {
+      margin-bottom: 14px;
+      font-size: 20px;
+    }
+
+    .section-card p {
+      margin: 0 0 10px;
+    }
+
+    .section-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .section-card li + li {
+      margin-top: 8px;
+    }
+
+    .media-box,
+    .diagram-box {
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.7), rgba(242, 227, 199, 0.74)),
+        linear-gradient(120deg, rgba(180, 79, 42, 0.06), transparent 60%);
+      border: 1px solid var(--line);
+    }
+
+    .media-box {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .media-box::before {
+      content: "Preview";
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31, 106, 112, 0.1);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .media-box strong {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .media-box span {
+      max-width: 360px;
+      color: var(--muted);
+    }
+
+    .media-box.image-mode {
+      padding: 0;
+      display: block;
+      min-height: 260px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .media-box.image-mode::before {
+      content: "Project Screenshot";
+    }
+
+    .media-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .figure-panel {
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--line);
+    }
+
+    .figure-panel.wide {
+      grid-column: 1 / -1;
+    }
+
+    .figure-panel img {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(29, 26, 22, 0.08);
+    }
+
+    .figure-panel figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff8f1;
+      font-weight: 700;
+    }
+
+    .diagram-box {
+      padding: 18px;
+    }
+
+    .pdf-panel {
+      margin-top: 16px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 460px;
+      border: 0;
+      display: block;
+      background: #f7f1e5;
+    }
+
+    .pdf-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pdf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(180, 79, 42, 0.1);
+      color: var(--accent-deep);
+      font-weight: 700;
+    }
+
+    .diagram-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .flow-rows,
+    .flow-columns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .flow-columns {
+      align-items: stretch;
+    }
+
+    .node {
+      flex: 1 1 140px;
+      min-width: 120px;
+      padding: 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(29, 26, 22, 0.1);
+      background: rgba(255, 255, 255, 0.74);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .node.soft {
+      background: rgba(243, 201, 139, 0.24);
+    }
+
+    .node.deep {
+      background: rgba(31, 106, 112, 0.14);
+    }
+
+    .arrow {
+      font-size: 22px;
+      color: var(--accent);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+      flex: 1 1 180px;
+      min-width: 170px;
+    }
+
+    .diagram-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      color: var(--accent-deep);
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .result-table {
+      width: 100%;
+      margin-top: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .result-table th {
+      color: var(--accent-deep);
+      background: rgba(180, 79, 42, 0.08);
+      font-weight: 700;
+    }
+
+    .result-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .impact-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .impact-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+    }
+
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .compact-project {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--line);
+    }
+
+    .compact-project h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+    }
+
+    .compact-project p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .compact-project ul {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .compact-project li + li {
+      margin-top: 6px;
+    }
+
+    .compact-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .compact-tags span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31, 106, 112, 0.1);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .footnote {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 0 0 48px;
+    }
+
+    .footer-card {
+      padding: 24px 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(29, 26, 22, 0.92), rgba(63, 51, 33, 0.96));
+      color: rgba(255,255,255,0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .footer-card p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-panel,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics,
+      .figure-grid,
+      .compact-grid,
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero,
+      main {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .hero-panel,
+      .project,
+      .footer-card {
+        padding: 20px;
+      }
+
+      .project-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="container">
+        <div class="hero-panel">
+          <section>
+            <span class="eyebrow">Project Portfolio</span>
+            <h1>Hello, I am Shaoyuan Xie</h1>
+            <p class="hero-subtitle">An AI and automation engineer focused on multimodal systems, agent engineering, and applied machine learning.</p>
+            <div class="contact-row">
+              <a class="contact-chip" href="mailto:elonon901001@gmail.com">Email: elonon901001@gmail.com</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>4 + 4</strong>
+                <span>Featured + Additional</span>
+              </div>
+              <div class="stat">
+                <strong>Multimodal + Agents</strong>
+                <span>Core Technical Focus</span>
+              </div>
+              <div class="stat">
+                <strong>Deployable / Explainable / Scalable</strong>
+                <span>Engineering Goals</span>
+              </div>
+            </div>
+            <nav class="quick-nav">
+              <a href="#nyc-landuse">NYC Land-use Classification</a>
+              <a href="#yanzhi">Facial Aesthetics AI</a>
+              <a href="#cotton-diagnosis">Cotton Disease Diagnosis</a>
+              <a href="#transformer-sentiment">Transformer Sentiment</a>
+              <a href="#additional-projects">Additional Projects</a>
+            </nav>
+          </section>
+          <aside class="hero-card">
+            <div>
+              <small>Core Skill Tags</small>
+              <div class="tag-list" style="margin-top:14px;">
+                <span class="tag">Multimodal AI Systems</span>
+                <span class="tag">RAG Application Development</span>
+                <span class="tag">LLM Engineering</span>
+                <span class="tag">Transformer Fine-tuning</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">ML Experiment Design</span>
+                <span class="tag">Multimodal RAG</span>
+                <span class="tag">VLM Adaptation</span>
+                <span class="tag">Full-stack AI Product Development</span>
+                <span class="tag">Automation and Control Background</span>
+              </div>
+            </div>
+            <div>
+              <small>Profile</small>
+              <p style="margin-top:12px;">
+                I focus on multimodal capabilities, knowledge-augmented applications, and practical LLM engineering, combining algorithm implementation, product delivery, and frontend/backend collaboration.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="project" id="nyc-landuse">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">Project 01</div>
+              <h2>Fine-Tuning Qwen2.5-VL for Leakage-Aware Multimodal Land-Use Classification</h2>
+            </div>
+            <div class="pill">Qwen2.5-VL · LoRA / QLoRA · Closed-set Classification</div>
+          </div>
+
+          <p class="project-summary">
+            This project targets parcel-level land-use classification in New York City. I built a multimodal benchmark with 84,544 tax lots by aligning NYC PLUTO 2018 records with 2018 orthophoto imagery. Each sample contains a 512×512 aerial image crop, weak administrative metadata, and a text description, and the task is to predict one of 11 fixed land-use codes. The core work was 4-bit LoRA adaptation of Qwen2.5-VL-7B-Instruct under image-only, weak-metadata-only, and image-plus-metadata settings.
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Benchmark Construction</h3>
+              <p>
+                Starting from NYC public PLUTO 2018 records and 2018 orthophoto tiles, I cleaned <code>pluto2018.csv</code>, standardized BBL identifiers and land-use labels, sampled 84,544 parcels from 855K valid lots with <code>borough × landuse</code> stratification, and converted NYC coordinates to latitude and longitude.
+              </p>
+              <p>
+                I then cropped 512×512 parcel-level aerial images from orthophoto tiles, constructed JSONL manifests with image, metadata, and text fields, split train / validation / test sets, and produced both <code>landuse11_full</code> and <code>landuse11_weakmeta</code> dataset versions.
+              </p>
+            </div>
+
+            <div class="section-card">
+              <h3>Benchmark Scale</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>84,544</strong>
+                  <span>tax lot samples</span>
+                </div>
+                <div class="metric">
+                  <strong>11 classes</strong>
+                  <span>land-use labels</span>
+                </div>
+                <div class="metric">
+                  <strong>image + metadata</strong>
+                  <span>multimodal inputs</span>
+                </div>
+              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Split</th>
+                    <th>Samples</th>
+                    <th>Input</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Train</td>
+                    <td>67,635</td>
+                    <td>image + weak metadata + text</td>
+                  </tr>
+                  <tr>
+                    <td>Validation</td>
+                    <td>8,453</td>
+                    <td>stratified by borough × landuse</td>
+                  </tr>
+                  <tr>
+                    <td>Test</td>
+                    <td>8,456</td>
+                    <td>11-way land-use code</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Leakage-aware Design</h3>
+              <ul>
+                <li>Identified shortcut / leakage risks in PLUTO metadata, including <code>bldgclass</code>, <code>zonedist1</code>, <code>landuse</code>, and building-area fields.</li>
+                <li>Found through rule-based checks that <code>bldgclass</code> could almost directly predict land use, with accuracy and macro-F1 close to <code>0.9999</code>.</li>
+                <li>Built a <code>weakmeta</code> setting that keeps only <code>borough</code>, <code>landmk</code>, <code>histdist</code>, <code>yearbuilt</code>, <code>lotarea</code>, <code>numfloors</code>, latitude, and longitude.</li>
+                <li>Used weak metadata to avoid shortcut learning from administrative proxy fields and make multimodal evaluation fairer.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Qwen2.5-VL Adaptation</h3>
+              <ul>
+                <li>Loaded <code>Qwen2.5-VL-7B-Instruct</code> and used 4-bit quantization with LoRA adapters for parameter-efficient fine-tuning.</li>
+                <li>Used HuggingFace Trainer for supervised fine-tuning, saved <code>final_adapter</code>, and evaluated on the held-out test set.</li>
+                <li>LoRA settings included rank <code>16</code>, alpha <code>32</code>, dropout <code>0.05</code>, learning rate <code>2e-4</code>, and <code>2</code> epochs.</li>
+                <li>Trained three modality-specific adapters: <code>image_only</code>, <code>weakmeta_only</code>, and <code>image_weakmeta</code>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Closed-set Candidate Scoring</h3>
+              <p>
+                To avoid unstable free-form VLM outputs, I implemented closed-set candidate scoring. Instead of allowing the model to generate arbitrary text, the evaluator computes conditional log probabilities for each of the 11 fixed land-use codes and selects the highest-scoring label.
+              </p>
+              <div class="diagram-box">
+                <div class="diagram-title">Generative VLM → Closed-set Classifier</div>
+                <div class="flow-rows">
+                  <div class="node deep">Image + Weak Metadata</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Qwen LoRA Adapter</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Score 01 ... 11</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">Best Land-use Code</div>
+                </div>
+                <div class="diagram-note">This avoids illegal outputs, formatting errors, and label-mapping issues caused by free-form generation.</div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <h3>Key Results</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>0.7060</strong>
+                  <span>best Qwen test macro-F1</span>
+                </div>
+                <div class="metric">
+                  <strong>0.7519</strong>
+                  <span>Qwen image+weakmeta accuracy</span>
+                </div>
+                <div class="metric">
+                  <strong>0.6716</strong>
+                  <span>ResNet gated fusion macro-F1</span>
+                </div>
+              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Accuracy</th>
+                    <th>Macro-F1</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Zero-shot image-only</td>
+                    <td>0.2305</td>
+                    <td>0.2155</td>
+                  </tr>
+                  <tr>
+                    <td>LoRA image+weakmeta free generation</td>
+                    <td>0.6798</td>
+                    <td>0.6766</td>
+                  </tr>
+                  <tr>
+                    <td>LoRA image+weakmeta closed-set</td>
+                    <td>0.7519</td>
+                    <td>0.7060</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Baselines and Distillation</h3>
+              <ul>
+                <li>Compared against traditional multimodal baselines including ResNet50 image-only, ResNet50 image+weakmeta, no-gate fusion, and gated fusion.</li>
+                <li>Qwen LoRA image+weakmeta closed-set reached <code>0.7060</code> macro-F1, outperforming ResNet50 image+weakmeta at <code>0.6627</code> and gated fusion at <code>0.6716</code>.</li>
+                <li>Cached Qwen closed-set probabilities over 11 classes and explored Qwen-derived soft-label distillation into lightweight ResNet students.</li>
+                <li>Distillation experiments suggested that direct VLM adaptation was more effective than Qwen-to-ResNet student distillation in the current setup.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>My Contributions</h3>
+              <ul>
+                <li>Built a NYC parcel-level multimodal land-use benchmark by aligning PLUTO land-use labels with aerial imagery, weak metadata, and text descriptions.</li>
+                <li>Analyzed and mitigated metadata leakage / shortcut learning by designing a leakage-aware weak-metadata dataset version.</li>
+                <li>Fine-tuned Qwen2.5-VL-7B-Instruct with 4-bit LoRA under image-only, weakmeta-only, and image+weakmeta settings.</li>
+                <li>Implemented closed-set candidate scoring to adapt a generative VLM into a stable 11-class classifier.</li>
+                <li>Conducted systematic comparisons against ResNet / fusion baselines and explored Qwen soft-label knowledge distillation.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>Project Value</h3>
+            <div class="impact-list">
+              <div class="impact-item">Reframed real-world urban parcel land-use recognition as a multimodal VLM classification task over image, metadata, and text inputs.</div>
+              <div class="impact-item">Showed that zero-shot VLMs perform poorly on this task, while LoRA adaptation plus closed-set scoring substantially improves reliability and performance.</div>
+              <div class="impact-item">Used leakage analysis and weak metadata construction to evaluate genuine multimodal understanding rather than administrative-field shortcuts.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="yanzhi">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">Project 02</div>
+              <h2>Yanzhi | AI-based Facial Aesthetics Analysis System</h2>
+            </div>
+            <div class="pill">Multi-agent · Multimodal · Cloud Deployment · RAG</div>
+          </div>
+
+          <p class="project-summary">
+            I developed a multi-agent, multimodal facial aesthetics analysis system for frontal face images. The system integrates computer vision, geometric modeling, LLM-based reasoning, and RAG-constrained scoring into a unified structured evaluation framework. A shared representation layer enables specialized agents to reason over the same visual features, landmarks, geometric descriptors, and texture cues.
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Project Overview</h3>
+              <p>
+                The system uses a purpose-built multi-agent architecture. Each agent performs expert-level analysis for a specific facial region, while all agents operate on a unified structured representation layer for shared features, cross-module coordination, and chained reasoning.
+              </p>
+              <p>
+                I also built a RAG-based scoring framework that anchors model outputs to curated aesthetics rules and skincare/style knowledge bases. This improved output stability, JSON consistency, and robustness across lighting conditions and user image styles.
+              </p>
+              <p>
+                The full system is deployed on Alibaba Cloud uniCloud as a production-oriented end-to-end pipeline, including a Uni-app frontend built with Vue3 and TypeScript, Node.js cloud-function inference scheduling, asynchronous task queues, content safety checks, cloud persistence, hot updates, and a scalable cloud-native architecture.
+              </p>
+            </div>
+
+            <div class="section-card media-box">
+              <div>
+                <strong>Demo Video</strong>
+                <span>For system details, please refer to the demo video. This page keeps a direct link to the video.</span>
+                <a class="video-link" href="https://youtu.be/ons2w1oyhIk" target="_blank" rel="noreferrer">Open YouTube Demo</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Screenshot</h3>
+              <div class="media-box image-mode">
+                <img class="media-image" src="./yanzhi.png" alt="Yanzhi AI facial aesthetics analysis system screenshot">
+              </div>
+              <div class="footnote">Note: detailed system behavior is best viewed in the demo video.</div>
+            </div>
+
+            <div class="section-card">
+              <h3>System Architecture</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">Application Architecture</div>
+                <div class="flow-rows">
+                  <div class="stack">
+                    <div class="node deep">Client (uni-app)<br>Upload / Waiting / Results</div>
+                    <div class="node">Local State Cache<br>Pinia + Storage</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">Cloud Analysis Service<br>Task Creation / Status Query / Result Writeback</div>
+                    <div class="node">Analysis History Service<br>History Query / Recovery Write</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node">uniCloud Database<br>Task Table / History Table</div>
+                    <div class="node">Object Storage OSS<br>Image Upload / Secure Access</div>
+                  </div>
+                </div>
+                <div class="diagram-note">The client polls task status while the cloud side handles long-running inference, storage writeback, and result persistence.</div>
+              </div>
+
+              <div class="diagram-box" style="margin-top:14px;">
+                <div class="diagram-title">Algorithm Architecture</div>
+                <div class="flow-columns">
+                  <div class="stack">
+                    <div class="node deep">User Uploads Frontal Face Image</div>
+                    <div class="node">Preprocessing<br>Alignment / Normalization</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">Perception Plugin Layer<br>Face Shape / Eyes / Nose / Lips / Skin</div>
+                    <div class="node">Structured Representation Layer<br>Feature Maps / Landmarks / Geometry / Texture Cues</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="stack">
+                    <div class="node soft">Specialized Agent Layer<br>Face Shape / Eyes / Nose / Mouth / Skin</div>
+                    <div class="node">RAG Knowledge Base<br>Scoring Rules / Style and Skincare Advice</div>
+                  </div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">Structured Output<br>JSON Scores and Suggestions</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>My Contributions</h3>
+              <ul>
+                <li>Led the multi-agent aesthetics analysis architecture and defined roles, structured inputs, and collaboration workflows for five specialized agents.</li>
+                <li>Designed and implemented a unified structured representation layer combining feature maps, facial landmarks, geometric descriptors, and lightweight texture cues.</li>
+                <li>Built a RAG-based scoring framework that anchors LLM outputs to aesthetics rules and skincare/style knowledge, improving cross-sample consistency.</li>
+                <li>Implemented cloud-side asynchronous inference scheduling on uniCloud task queues for long-running multimodal analysis, distributed task processing, and stable result persistence.</li>
+                <li>Implemented OSS signed upload and secure retrieval paths for traceable image access between the frontend and cloud inference layer.</li>
+                <li>Built a robust structured-output parser with JSON parsing and regex fallback logic to handle unstable multimodal model outputs.</li>
+                <li>Designed explainable score visualizations and a demo video generation module for facial structure and multi-angle comparison.</li>
+                <li>Integrated Qwen-VL Max and LangChain for multi-step reasoning, chained analysis, and extensible multi-agent collaboration.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Results</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>200+</strong>
+                  <span>multi-angle samples validated</span>
+                </div>
+                <div class="metric">
+                  <strong>&lt;3 sec</strong>
+                  <span>end-to-end inference latency</span>
+                </div>
+                <div class="metric">
+                  <strong>Stable structured output</strong>
+                  <span>more consistent than general multimodal models</span>
+                </div>
+              </div>
+              <div class="impact-list">
+                <div class="impact-item">Created a reusable, explainable, and extensible multi-agent aesthetics reasoning framework that serves as the core technical foundation for the commercial MVP.</div>
+                <div class="impact-item">The system has production-grade robustness, knowledge-augmented reasoning, and scalable scheduling, with room to evolve toward multi-angle fusion and personalized modeling.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="cotton-diagnosis">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">Project 03</div>
+              <h2>Thesis: Multimodal LLM-RAG System for Cotton Disease and Pest Diagnosis</h2>
+            </div>
+            <div class="pill">Thesis · Qwen-VL · RAG · Milvus · Agricultural AI</div>
+          </div>
+
+          <p class="project-summary">
+            This is my thesis project, focused on cotton disease and pest identification, treatment recommendation generation, and field-management question answering. I researched and implemented a multimodal LLM-RAG diagnosis system that combines user-uploaded cotton disease/pest images, natural-language questions, Qwen-VL visual understanding, and retrieved domain knowledge from a cotton plant-protection knowledge base. The system generates structured diagnosis results, supporting evidence, treatment suggestions, and notes. Compared with pure image classification or direct multimodal prompting, the RAG-enhanced design grounds model outputs in agricultural knowledge, reducing hallucination risk and improving the reliability of professional recommendations.
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Thesis Goal and System Workflow</h3>
+              <p>
+                The thesis focuses on three practical challenges in agricultural diagnosis: complex field images make pure visual models unstable, general multimodal models can produce recommendations without plant-protection evidence, and diagnosis results need to be structured for farmers and agronomy users.
+              </p>
+              <p>
+                The system connects image recognition, knowledge retrieval, and LLM generation into an end-to-end diagnosis chain. After a user uploads a field image and enters a question, Qwen-VL extracts visual semantic information and possible disease/pest clues, the retrieval module recalls Top-k professional knowledge snippets, and a prompt template constrains the final answer into diagnosis result, evidence, treatment suggestions, and notes.
+              </p>
+            </div>
+
+            <div class="section-card">
+              <h3>Diagnosis Architecture</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">Multimodal RAG Diagnosis Workflow</div>
+                <div class="flow-rows">
+                  <div class="node deep">Image + Question<br>Web Upload</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Qwen-VL<br>Image Understanding</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Milvus<br>Top-k Retrieval</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">Structured Diagnosis<br>Treatment Advice</div>
+                </div>
+                <div class="diagram-note">The core thesis idea is to ground multimodal generation with domain retrieval so the diagnosis has both visual evidence and plant-protection knowledge support.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Knowledge-Grounded Diagnosis Design</h3>
+              <ul>
+                <li>Built a cotton disease and pest domain knowledge base covering symptoms, occurrence patterns, prevention methods, and field management suggestions for common cotton problems.</li>
+                <li>Cleaned, chunked, and structured the knowledge text to provide a stable foundation for vectorization and retrieval.</li>
+                <li>Designed a knowledge vectorization workflow using an embedding model to convert knowledge chunks into vectors and store them in Milvus.</li>
+                <li>Retrieved Top-k similar knowledge snippets based on user questions and image recognition results to provide professional context for multimodal reasoning.</li>
+                <li>Optimized prompt templates and structured output formats so the model answers with diagnosis result, evidence, treatment suggestions, and notes.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Tech Stack</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>Qwen-VL</strong>
+                  <span>multimodal image understanding</span>
+                </div>
+                <div class="metric">
+                  <strong>Milvus</strong>
+                  <span>vector retrieval backend</span>
+                </div>
+                <div class="metric">
+                  <strong>RAG</strong>
+                  <span>knowledge-grounded generation</span>
+                </div>
+              </div>
+              <div class="impact-list">
+                <div class="impact-item">Technologies include Qwen-VL, RAG, Milvus, embeddings, Python, FastAPI / Flask, prompt engineering, vector retrieval, and multimodal reasoning.</div>
+                <div class="impact-item">The Web prototype supports image upload, text questions, backend diagnosis, knowledge retrieval, and result display.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Thesis Evaluation Design</h3>
+              <ul>
+                <li>Designed comparison experiments between direct multimodal answering and RAG-enhanced diagnosis with a domain knowledge base.</li>
+                <li>Designed ablation experiments to observe the effects of removing retrieval, changing prompt templates, or adjusting retrieval Top-k.</li>
+                <li>Evaluated system behavior across diagnosis accuracy, recommendation professionalism, answer completeness, structured-output stability, and response time.</li>
+                <li>Focused on generalization, explainability, and reliability of professional suggestions under complex field-image conditions.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>My Contributions</h3>
+              <ul>
+                <li>Designed and implemented the multimodal RAG reasoning chain that combines images, user questions, recognition results, and retrieved knowledge as Qwen-VL inputs.</li>
+                <li>Built the cotton disease/pest domain knowledge base and Milvus vector retrieval workflow for semantic recall of agricultural knowledge snippets.</li>
+                <li>Developed the Web prototype system with image upload, text questions, backend diagnosis calls, knowledge retrieval, and result display.</li>
+                <li>Optimized agricultural diagnosis prompts and structured outputs to improve usability, explainability, and output stability in plant-protection scenarios.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>Thesis Value</h3>
+            <div class="impact-list">
+              <div class="impact-item">Built an end-to-end agricultural AI diagnosis framework combining image understanding, knowledge retrieval, and LLM generation.</div>
+              <div class="impact-item">Compared with pure CNN image classification or direct multimodal QA, the system can combine domain knowledge with visual evidence to provide more explainable treatment suggestions.</div>
+              <div class="impact-item">By introducing a professional knowledge base through RAG, the thesis reduces hallucination and inaccurate treatment advice risks while providing a clear research question, system implementation, and evaluation path.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="transformer-sentiment">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">Project 04</div>
+              <h2>Multi-Model Sentiment Classification Study with RoBERTa Fine-Tuning</h2>
+            </div>
+            <div class="pill">Transformer Encoder · Slurm GPU Cluster · Sentiment Classification</div>
+          </div>
+
+          <p class="project-summary">
+            This project compares LSTM, Bi-LSTM+Attention, RoBERTa, and DeepSeek on Yelp, IMDB, and Rotten Tomatoes sentiment classification tasks, covering traditional RNNs, attention-based recurrent models, fine-tuned Transformer encoders, and LLM inference. The overall study shows that vanilla LSTM has a clear bottleneck on fine-grained Yelp 5-class sentiment classification, Bi-LSTM+Attention substantially improves contextual modeling, and Transformer-based methods perform best overall. My main contribution focused on the RoBERTa / BERT advanced Transformer component, including the training pipeline, GPU-cluster execution, strict validation/test refactor, confusion matrices, and experiment artifact archiving.
+          </p>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Project Scope and My Role</h3>
+              <p>
+                The overall project first builds a balanced Yelp 5-class setup and supplements it with IMDB / Rotten Tomatoes binary classification, comparing model behavior from LSTM baselines to Bi-LSTM+Attention, RoBERTa fine-tuning, and DeepSeek.
+              </p>
+              <p>
+                I focused on adapting pretrained Transformer encoders into a standardized, batch-runnable, auditable training and evaluation system. The general BERT script supports IMDB, Rotten Tomatoes, Yelp binary, Yelp 5-class, Financial PhraseBank, and local CSV inputs, and automatically saves accuracy, macro-F1, confusion matrices, predictions, training time, inference latency, parameter count, and checkpoints.
+              </p>
+            </div>
+
+            <div class="section-card">
+              <h3>Comparison Pipeline</h3>
+              <div class="diagram-box">
+                <div class="diagram-title">Sentiment Model Comparison Workflow</div>
+                <div class="flow-rows">
+                  <div class="node deep">Datasets<br>Yelp / IMDB / RT</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Baselines<br>LSTM / Bi-LSTM+Attn</div>
+                  <div class="arrow">→</div>
+                  <div class="node soft">Advanced Models<br>RoBERTa / DeepSeek</div>
+                  <div class="arrow">→</div>
+                  <div class="node deep">Evaluation<br>Accuracy / F1 / Matrix</div>
+                </div>
+                <div class="diagram-note">The study compares model architectures; my focus was RoBERTa/BERT training, GPU-cluster execution, and result archiving.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>Overall Model Comparison</h3>
+            <table class="result-table">
+              <thead>
+                <tr>
+                  <th>Dataset</th>
+                  <th>LSTM</th>
+                  <th>Bi-LSTM + Attn</th>
+                  <th>RoBERTa</th>
+                  <th>DeepSeek</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Yelp 5-class</td>
+                  <td>~22.84%</td>
+                  <td>55.54%</td>
+                  <td>65.30%</td>
+                  <td>64.85%</td>
+                </tr>
+                <tr>
+                  <td>IMDB binary</td>
+                  <td>-</td>
+                  <td>90.82%</td>
+                  <td>94.39%</td>
+                  <td>95.22%</td>
+                </tr>
+                <tr>
+                  <td>Rotten Tomatoes binary</td>
+                  <td>-</td>
+                  <td>69.04%</td>
+                  <td>89.40%</td>
+                  <td>91.93%</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="impact-list">
+              <div class="impact-item">Yelp 5-class is the hardest task because middle ratings 2/3/4 have fuzzy semantic boundaries, exposing the bottleneck of vanilla LSTM models.</div>
+              <div class="impact-item">Bi-LSTM+Attention improves substantially through bidirectional context and sentiment-keyword weighting, but remains weaker than Transformer-based models.</div>
+              <div class="impact-item">RoBERTa is the most stable model on fine-grained Yelp classification, while DeepSeek performs strongest on IMDB and Rotten Tomatoes binary sentiment tasks.</div>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>My Contributions</h3>
+              <ul>
+                <li>Implemented a general BERT / RoBERTa sentiment fine-tuning pipeline covering multiple public datasets and local CSV inputs.</li>
+                <li>Configured the university Slurm GPU cluster and submitted background training jobs on RTX PRO 6000 Blackwell nodes via <code>sbatch</code>.</li>
+                <li>Resolved cluster environment issues around conda environments, pip cache, Hugging Face cache, PyTorch, Transformers, and accelerate compatibility.</li>
+                <li>Converted an original RoBERTa Yelp 5-class script into an IMDB / Rotten Tomatoes binary classification system with negative / positive confusion matrices and full metadata output.</li>
+                <li>Identified and corrected the experimental-design issue of using the test set for checkpoint selection by adding a strict validation/test version.</li>
+                <li>Maintained both a report-reproduction version and a stricter evaluation version, keeping reported results, code versions, and checkpoints traceable.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Key Results</h3>
+              <div class="metrics">
+                <div class="metric">
+                  <strong>65.30%</strong>
+                  <span>Yelp 5-class RoBERTa accuracy</span>
+                </div>
+                <div class="metric">
+                  <strong>94.39%</strong>
+                  <span>IMDB RoBERTa accuracy / macro-F1</span>
+                </div>
+                <div class="metric">
+                  <strong>89.40%</strong>
+                  <span>Rotten Tomatoes RoBERTa accuracy</span>
+                </div>
+              </div>
+
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Dataset</th>
+                    <th>Accuracy</th>
+                    <th>Macro-F1</th>
+                    <th>Train / Test</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Yelp 5-class</td>
+                    <td>0.6530</td>
+                    <td>0.6501</td>
+                    <td>50,000 / 5,000</td>
+                  </tr>
+                  <tr>
+                    <td>IMDB</td>
+                    <td>0.9439</td>
+                    <td>0.9439</td>
+                    <td>25,000 / 25,000</td>
+                  </tr>
+                  <tr>
+                    <td>Rotten Tomatoes</td>
+                    <td>0.8940</td>
+                    <td>0.8940</td>
+                    <td>8,530 / 1,066</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="section-card">
+              <h3>Cluster and Scripts</h3>
+              <ul>
+                <li>Used <code>sbatch</code> to submit training jobs to RTX PRO 6000 Blackwell nodes with <code>-C pro6000</code>.</li>
+                <li>Wrote <code>scripts/setup_cluster_env.sh</code>, <code>scripts/run_bert_pro6000.sbatch</code>, and Yelp / RoBERTa-specific scripts.</li>
+                <li>Moved conda envs, pip cache, and HF cache to SSD / project directories to avoid home quota limits.</li>
+                <li>Fixed compatibility issues in newer Transformers versions by replacing the old <code>tokenizer=</code> flow with a compatible <code>processing_class=</code> approach.</li>
+              </ul>
+            </div>
+
+            <div class="section-card">
+              <h3>Experiment Rigor and Reproducibility</h3>
+              <ul>
+                <li>The initial report results were fully reproducible, with logs showing CUDA availability and a completed final experiment summary.</li>
+                <li>Identified that the test set was used for checkpoint selection; this was not backpropagation leakage, but it was not methodologically strict.</li>
+                <li>Added a strict version where the train set is used for training, the validation set selects the best checkpoint, and the test set is evaluated only once.</li>
+                <li>Saved strict outputs to separate directories to avoid overwriting report-version results and preserve correspondence among reported numbers, code versions, and checkpoints.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>Archived Artifacts and Result Verification</h3>
+            <p>
+              Core experiment artifacts were archived, including training scripts, Slurm job scripts, metrics, confusion matrices, result summaries, and cluster log notes.
+              This page shows the training pipeline, result comparison, and reported-run confusion matrices to document the workflow, result consistency, and error analysis.
+            </p>
+            <div class="figure-grid">
+              <figure class="figure-panel wide">
+                <img src="./yelp_model_comparison.png" alt="Yelp 5-class sentiment classification model comparison">
+                <figcaption>Yelp 5-class main-task comparison: RoBERTa slightly leads DeepSeek on fine-grained classification and clearly outperforms LSTM and Bi-LSTM+Attention.</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./yelp_roberta_per_class_f1.png" alt="RoBERTa per-class F1 on Yelp 5-class sentiment task">
+                <figcaption>RoBERTa per-class F1 on Yelp: 1-star and 5-star reviews are easier, while 2-4 star reviews remain harder due to fuzzy semantic boundaries.</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./roberta_training_pipeline.png" alt="RoBERTa sentiment classification training pipeline">
+                <figcaption>RoBERTa training and evaluation flow: dataset, tokenizer, encoder, CLS concatenation, multi-sample dropout, binary classifier, and final metrics.</figcaption>
+              </figure>
+              <figure class="figure-panel wide">
+                <img src="./roberta_results_comparison.png" alt="RoBERTa sentiment classification results comparison">
+                <figcaption>Accuracy / macro-F1 comparison across IMDB and Rotten Tomatoes for reported runs and strict validation/test splits.</figcaption>
+              </figure>
+              <figure class="figure-panel">
+                <img src="./imdb_confusion_matrix_reported.png" alt="IMDB reported run confusion matrix">
+                <figcaption>IMDB reported-run confusion matrix showing prediction distribution across negative and positive classes.</figcaption>
+              </figure>
+              <figure class="figure-panel">
+                <img src="./rt_confusion_matrix_reported.png" alt="Rotten Tomatoes reported run confusion matrix">
+                <figcaption>Rotten Tomatoes reported-run confusion matrix, adding error-analysis evidence beyond accuracy alone.</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="section-card" style="margin-top:18px;">
+            <h3>Project Impact</h3>
+            <div class="impact-list">
+              <div class="impact-item">Turned a common BERT sentiment task into a reproducible, extensible training and evaluation pipeline that can run on a GPU cluster.</div>
+              <div class="impact-item">Provided a strong RoBERTa baseline for the team report with complete metrics, confusion matrices, logs, and checkpoints.</div>
+              <div class="impact-item">Added strict validation/test handling to move the work from “model runs” toward reproducible experimental engineering.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="project" id="additional-projects">
+          <div class="project-header">
+            <div>
+              <div class="project-kicker">Additional</div>
+              <h2>Additional Projects</h2>
+            </div>
+            <div class="pill">Core ML · AI Prototypes · Financial Automation</div>
+          </div>
+
+          <p class="project-summary">
+            These projects provide supporting evidence across classic computer vision, traditional machine learning experiments, agentic application prototyping, and trading automation. They are kept compact so the main portfolio narrative stays focused on multimodal AI, VLM adaptation, RAG, and Transformer training.
+          </p>
+
+          <div class="compact-grid">
+            <article class="compact-project">
+              <h3>VGG19 Transfer Learning Image Classification</h3>
+              <p>Built an end-to-end visual classification project on Dogs vs. Cats using ImageNet-pretrained VGG19 as a feature extractor and retraining only the final classifier for cat / dog prediction.</p>
+              <ul>
+                <li>Implemented 224×224 resizing, normalization, horizontal flipping, small rotation, and random resized cropping.</li>
+                <li>Trained with CrossEntropyLoss and SGD for 10 epochs, using dropout to reduce overfitting on a smaller dataset.</li>
+                <li>Used the best checkpoint to predict 500 test images and generate <code>submission.csv</code>, reaching roughly 98% - 99% validation accuracy.</li>
+                <li>Extended the pipeline to CIFAR-10 ten-class classification and discussed weighted loss and oversampling for class imbalance.</li>
+              </ul>
+              <div class="compact-tags">
+                <span>VGG19</span>
+                <span>Transfer Learning</span>
+                <span>Computer Vision</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>PCA Fashion-MNIST Analysis</h3>
+              <p>Built a traditional machine learning experiment over Fashion-MNIST to study how PCA dimensionality reduction affects 1-NN image classification.</p>
+              <ul>
+                <li>Processed 60,000 training and 10,000 testing images by flattening each 28×28 grayscale image into a 784-dimensional vector.</li>
+                <li>Applied train-only standardization to avoid test leakage and built a full-dimensional 1-NN baseline.</li>
+                <li>Evaluated PCA settings with 5, 10, 20, 30, 50, 80, 100, 150, 200, 300, 500, and 784 components.</li>
+                <li>Reached 84.78% test accuracy at 300 PCA components, above the 84.13% baseline, and visualized explained variance and accuracy curves.</li>
+              </ul>
+              <div class="compact-tags">
+                <span>PCA</span>
+                <span>1-NN</span>
+                <span>scikit-learn</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>Code-Review Agent</h3>
+              <p>Built a lightweight multi-agent code review prototype focused on LLM orchestration, state transitions, and structured report generation.</p>
+              <ul>
+                <li>Built the frontend with React and called Qwen through a LangChain-compatible backend wrapper.</li>
+                <li>Designed a shared state machine with reasoning, execution, observation, decision, and result aggregation nodes.</li>
+                <li>Added an iterative review-generation and review-validation loop so the system can generate findings, check quality, and revise outputs.</li>
+                <li>Produced structured code review reports and left room for later integration with real repositories, static analysis tools, and PR workflows.</li>
+              </ul>
+              <div class="compact-tags">
+                <span>React</span>
+                <span>LangChain</span>
+                <span>Multi-agent</span>
+              </div>
+            </article>
+
+            <article class="compact-project">
+              <h3>Fintech Multi-factor Quant Trading System</h3>
+              <p>Built an automated trading loop with XtQuant / MiniQMT, integrating market data ingestion, factor calculation, signal generation, risk control, and order execution into a runnable system.</p>
+              <ul>
+                <li>Implemented xtdata real-time subscriptions, historical data normalization, gap filling, and event-stream abstraction.</li>
+                <li>Designed multi-factor signals covering trend, volatility, volume, and strength ranking, with risk controls for exposure, stop-loss, and drawdown.</li>
+                <li>Implemented the xttrader execution engine and order state machine for automated live trading and execution callback handling.</li>
+                <li>Built performance monitoring and reports, with about 60.95% annualized return and roughly +1,368,064 RMB realized profit over the past year.</li>
+              </ul>
+              <div class="compact-tags">
+                <span>XtQuant</span>
+                <span>Event-driven</span>
+                <span>Risk Control</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
